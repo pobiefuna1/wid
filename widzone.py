@@ -63,17 +63,47 @@ class WidTrailblazer:
 
     def _load_zones(self):
         return {
-            "Heart Trail Zone": {"lat_min": 53.542, "lat_max": 53.570, "lon_min": -113.521, "lon_max": -113.496},
-            "Northern Steps Zone": {"lat_min": 53.570, "lat_max": 53.595, "lon_min": -113.521, "lon_max": -113.500},
-            "River Rise Zone": {"lat_min": 53.570, "lat_max": 53.630, "lon_min": -113.410, "lon_max": -113.370},
-            "Trail West Zone": {"lat_min": 53.550, "lat_max": 53.580, "lon_min": -113.560, "lon_max": -113.530},
-            "Valley Weave Zone": {"lat_min": 53.520, "lat_max": 53.540, "lon_min": -113.460, "lon_max": -113.430},
-            "Southwalk Zone": {"lat_min": 53.450, "lat_max": 53.480, "lon_min": -113.430, "lon_max": -113.410},
-            "Whitemud Path Zone": {"lat_min": 53.470, "lat_max": 53.500, "lon_min": -113.590, "lon_max": -113.520},
-            "Lakeside Loop Zone": {"lat_min": 53.610, "lat_max": 53.640, "lon_min": -113.540, "lon_max": -113.490},
-            "Southridge Zone": {"lat_min": 53.430, "lat_max": 53.460, "lon_min": -113.600, "lon_max": -113.510},
-            "Westfield Trail Zone": {"lat_min": 53.500, "lat_max": 53.540, "lon_min": -113.700, "lon_max": -113.580},
+        "Westfield Trail Zone": {
+            "lat_min": 53.470, "lat_max": 53.550,
+            "lon_min": -113.750, "lon_max": -113.600
+        },
+        "Southridge Zone": {
+            "lat_min": 53.430, "lat_max": 53.470,
+            "lon_min": -113.750, "lon_max": -113.600
+        },
+        "Whitemud Path Zone": {
+            "lat_min": 53.470, "lat_max": 53.500,
+            "lon_min": -113.600, "lon_max": -113.540
+        },
+        "Heart Trail Zone": {
+            "lat_min": 53.500, "lat_max": 53.540,
+            "lon_min": -113.600, "lon_max": -113.540
+        },
+        "Trail West Zone": {
+            "lat_min": 53.540, "lat_max": 53.570,
+            "lon_min": -113.600, "lon_max": -113.540
+        },
+        "Northern Steps Zone": {
+            "lat_min": 53.570, "lat_max": 53.610,
+            "lon_min": -113.600, "lon_max": -113.540
+        },
+        "Lakeside Loop Zone": {
+            "lat_min": 53.610, "lat_max": 53.650,
+            "lon_min": -113.600, "lon_max": -113.540
+        },
+        "Valley Weave Zone": {
+            "lat_min": 53.500, "lat_max": 53.540,
+            "lon_min": -113.540, "lon_max": -113.460
+        },
+        "Southwalk Zone": {
+            "lat_min": 53.430, "lat_max": 53.500,
+            "lon_min": -113.540, "lon_max": -113.460
+        },
+        "River Rise Zone": {
+            "lat_min": 53.500, "lat_max": 53.650,
+            "lon_min": -113.460, "lon_max": -113.360
         }
+    }
 
     def describe(self, zone_name):
         return self.ZONE_INFO.get(zone_name, "Unknown location.")
