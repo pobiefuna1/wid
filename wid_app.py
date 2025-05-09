@@ -22,13 +22,24 @@ st.write("Enter any Edmonton address to find its walking zone.")
 address = st.text_input("📍 Address", placeholder="e.g., 124 Street NW & 111 Avenue NW, Edmonton")
 
 if address:
-    try:
-        zone, location, (lat, lon) = trail.lookup_address(address)
-        st.success(f"✅ This address belongs to **{zone}**.")
-        st.markdown(f"**Location:** {location}")
-    except Exception as e:
-        st.error("❌ Unable to locate that address. Please check spelling or try a nearby intersection.")
-        st.code(str(e))
+    if address.startswith("?"):
+        command = address.strip().lower()
+
+        if command == "?zones":
+            st.markdown("### 🗺️ Current WID Trailblazer Zones:")
+            for z in trail.zones:
+                st.markdown(f"- **{z}**: {trail.describe(z)}")
+        else:
+            st.warning("Unknown command.")
+    else:
+        try:
+            zone, location, (lat, lon) = trail.lookup_address(address)
+            st.success(f"✅ This address belongs to **{zone}**.")
+            st.markdown(f"**Location:** {location}")
+        except Exception as e:
+            st.error("❌ Unable to locate that address. Please check spelling or try a nearby intersection.")
+            st.code(str(e))
+
 
 # --- Footer ---
 st.markdown("---")
