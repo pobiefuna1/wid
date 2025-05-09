@@ -1,4 +1,5 @@
 import streamlit as st
+from pathlib import Path
 from widzone import WidTrailblazer
 
 # --- Config ---
@@ -9,7 +10,7 @@ trail = WidTrailblazer(API_KEY)
 st.set_page_config(page_title="WID Zone Checker", page_icon="🗺️")
 
 # --- Logo ---
-from pathlib import Path
+
 logo_path = Path(__file__).parent / "wid_logo_web_ready" / "wid_logo_transparent.png"
 if logo_path.exists():
     st.image(str(logo_path), width=180)
