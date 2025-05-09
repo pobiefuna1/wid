@@ -30,7 +30,7 @@ if address:
             for z in trail.zones:
                 st.markdown(f"- **{z}**: {trail.describe(z)}")
         else:
-            st.warning("Unknown command.")
+            st.warning("Unknown command. Try ?zones")
     else:
         try:
             zone, location, (lat, lon) = trail.lookup_address(address)
