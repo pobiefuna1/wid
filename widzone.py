@@ -15,6 +15,8 @@ def get_coordinates(address):
         raise ValueError("Address not found.")
 
 def get_zone_from_address(address):
+    print(f"DEBUG: lat={lat}, lon={lon}")
+    
     lat, lon = get_coordinates(address)
 
     # 1. Heart Trail Zone
