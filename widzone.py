@@ -45,11 +45,11 @@ class WidTrailblazer:
             "Westfield Trail Zone"
         ]
 
-    for name in ordered_zones:
-        bounds = self.zones.get(name)
-        if ((bounds["lat_min"] - margin) <= lat <= (bounds["lat_max"] + margin) and
-            (bounds["lon_min"] - margin) <= lon <= (bounds["lon_max"] + margin)):
-    return name
+        for name in ordered_zones:
+            bounds = self.zones.get(name)
+            if ((bounds["lat_min"] - margin) <= lat <= (bounds["lat_max"] + margin) and
+                (bounds["lon_min"] - margin) <= lon <= (bounds["lon_max"] + margin)):
+        return name
 
     self._log_unmapped(lat, lon)
     return "Unmapped Zone"
