@@ -32,9 +32,16 @@ if address:
         st.code(str(e))
 
 # Footer
+st.markdown("---")
 st.markdown(
-    "<div style='text-align: center; font-size: 0.8em; color: gray;'>"
-    "© 2025 Peter Obiefuna, Arizen Corporation"
-    "</div>",
+    """
+    <div style='text-align: center; font-size: 0.9em;'>
+        For walking tips and community support, visit:
+        <a href="https://widwalk.com/" target="_blank" style="color:#00cc66;">widwalk.com</a>
+    </div>
+    <div style='text-align: center; font-size: 0.8em; color: gray; margin-top: 6px;'>
+        © 2025 Peter Obiefuna, Arizen Corporation
+    </div>
+    """,
     unsafe_allow_html=True
 )
