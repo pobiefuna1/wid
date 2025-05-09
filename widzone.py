@@ -1,3 +1,4 @@
+
 from opencage.geocoder import OpenCageGeocode
 
 class WidTrailblazer:
@@ -29,40 +30,41 @@ class WidTrailblazer:
             raise ValueError(f"Could not geocode: {cleaned}")
 
     def get_zone(self, lat, lon):
-        margin = 0.002  # ~200m fuzz margin
-        ordered_zones = [
-            "Heart Trail Zone",
-            "Northern Steps Zone",
-            "Trail West Zone",
-            "Valley Weave Zone",
-            "Southwalk Zone",
-            "Whitemud Path Zone",
-            "Lakeside Loop Zone",
-            "River Rise Zone",
-            "Southridge Zone",
-            "Westfield Trail Zone"
-        ]
-        for name in ordered_zones:
-            bounds = self.zones.get(name)
-            if ((bounds["lat_min"] - margin) <= lat <= (bounds["lat_max"] + margin) and
-                (bounds["lon_min"] - margin) <= lon <= (bounds["lon_max"] + margin)):
+        for name, bounds in self.zones.items():
+            if (bounds["lat_min"] <= lat <= bounds["lat_max"] and
+                bounds["lon_min"] <= lon <= bounds["lon_max"]):
                 return name
 
-        self._log_unmapped(lat, lon)
-        return "Unmapped Zone"
-
-    def _log_unmapped(self, lat, lon):
-        print(f"[UNMAPPED] lat={lat:.6f}, lon={lon:.6f}")
         for name, b in self.zones.items():
-            lat_match = b["lat_min"] <= lat <= b["lat_max"]
-            lon_match = b["lon_min"] <= lon <= b["lon_max"]
-            print(f"→ {name}: lat_match={lat_match}, lon_match={lon_match}")
+            if lat > b["lat_max"] and b["lon_min"] <= lon <= b["lon_max"]:
+                return name
+            elif lat < b["lat_min"] and b["lon_min"] <= lon <= b["lon_max"]:
+                return name
+            elif lon < b["lon_min"] and b["lat_min"] <= lat <= b["lat_max"]:
+                return name
+            elif lon > b["lon_max"] and b["lat_min"] <= lat <= b["lat_max"]:
+                return name
+
+        def center(bounds): return ((bounds["lat_min"] + bounds["lat_max"]) / 2,
+                                    (bounds["lon_min"] + bounds["lon_max"]) / 2)
+        def distance(c): return abs(c[0] - lat) + abs(c[1] - lon)
+        closest = min(self.zones.items(), key=lambda z: distance(center(z[1])))
+        return closest[0]
+
+    def describe(self, zone_name):
+        return self.ZONE_INFO.get(zone_name, "Unknown location.")
+
+    def lookup_address(self, address):
+        lat, lon = self.get_coordinates(address)
+        zone = self.get_zone(lat, lon)
+        description = self.describe(zone)
+        return zone, description, (lat, lon)
 
     def _load_zones(self):
         return {
             "Westfield Trail Zone": {
-                "lat_min": 53.470, "lat_max": 53.550,
-                "lon_min": -113.580, "lon_max": -113.600  # expanded eastward
+                "lat_min": 53.430, "lat_max": 53.550,
+                "lon_min": -113.600, "lon_max": -113.580
             },
             "Southridge Zone": {
                 "lat_min": 53.430, "lat_max": 53.470,
@@ -101,12 +103,3 @@ class WidTrailblazer:
                 "lon_min": -113.460, "lon_max": -113.360
             }
         }
-
-    def describe(self, zone_name):
-        return self.ZONE_INFO.get(zone_name, "Unknown location.")
-
-    def lookup_address(self, address):
-        lat, lon = self.get_coordinates(address)
-        zone = self.get_zone(lat, lon)
-        description = self.describe(zone)
-        return zone, description, (lat, lon)
