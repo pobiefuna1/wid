@@ -1,44 +1,35 @@
 import streamlit as st
-from pathlib import Path
-from widzone import get_zone_from_address, get_coordinates
 from widzone import WidTrailblazer
 
-# OpenCage API key
-API_KEY = "3dc65113cf8e4f10a2802af5cb630947"
-
+# --- Config ---
+API_KEY = "3dc65113cf8e4f10a2802af5cb630947"  # Set your OpenCage API key here
 trail = WidTrailblazer(API_KEY)
-zone, location, (lat, lon) = trail.lookup_address(address)
 
-# Page config
+# --- Page setup ---
 st.set_page_config(page_title="WID Zone Checker", page_icon="🗺️")
 
-# Optional: display logo if available
+# --- Logo ---
+from pathlib import Path
 logo_path = Path(__file__).parent / "wid_logo_web_ready" / "wid_logo_transparent.png"
 if logo_path.exists():
     st.image(str(logo_path), width=180)
 
-# Title and intro
+# --- UI ---
 st.title("🚶‍♀️ WID Trailblazer Zone Checker")
 st.write("Enter any Edmonton address to find its walking zone.")
 
-# Address input field
 address = st.text_input("📍 Address", placeholder="e.g., 124 Street NW & 111 Avenue NW, Edmonton")
 
-# Address lookup logic
 if address:
     try:
-        zone = get_zone_from_address(address)
-        lat, lon = get_coordinates(address)
-
+        zone, location, (lat, lon) = trail.lookup_address(address)
         st.success(f"✅ This address belongs to **{zone}**.")
-        from widzone import ZONE_INFO
-        st.markdown(f"**Location:** {ZONE_INFO.get(zone, 'Unknown')}")
-
+        st.markdown(f"**Location:** {location}")
     except Exception as e:
         st.error("❌ Unable to locate that address. Please check spelling or try a nearby intersection.")
         st.code(str(e))
 
-# Footer
+# --- Footer ---
 st.markdown("---")
 st.markdown(
     """
