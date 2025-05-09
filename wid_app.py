@@ -24,7 +24,8 @@ if address:
         lat, lon = get_coordinates(address)
 
         st.success(f"✅ This address belongs to **{zone}**.")
-        st.markdown(f"**Coordinates:** {lat:.5f}, {lon:.5f}")
+        from widzone import ZONE_INFO
+        st.markdown(f"**Location:** {ZONE_INFO.get(zone, 'Unknown')}")
 
     except Exception as e:
         st.error("❌ Unable to locate that address. Please check spelling or try a nearby intersection.")
