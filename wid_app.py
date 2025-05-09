@@ -1,6 +1,13 @@
 import streamlit as st
 from pathlib import Path
 from widzone import get_zone_from_address, get_coordinates
+from widzone import WidTrailblazer
+
+# OpenCage API key
+API_KEY = "3dc65113cf8e4f10a2802af5cb630947"
+
+trail = WidTrailblazer(API_KEY)
+zone, location, (lat, lon) = trail.lookup_address(address)
 
 # Page config
 st.set_page_config(page_title="WID Zone Checker", page_icon="🗺️")
