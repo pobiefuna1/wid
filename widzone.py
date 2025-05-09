@@ -20,26 +20,22 @@ class WidTrailblazer:
             "Unmapped Zone": "Not within current trail boundaries",
         }
 
-   def get_coordinates(self, address):
+    def get_coordinates(self, address):
         cleaned = f"{address}, Edmonton, AB, Canada"
         result = self.geocoder.geocode(cleaned)
 
         if result and len(result):
             lat = result[0]['geometry']['lat']
             lon = result[0]['geometry']['lng']
-            
             if self._distance_from_edmonton(lat, lon) > 50:
                 raise ValueError(f"Address resolved too far from Edmonton center: {lat:.5f}, {lon:.5f}")
-            
             return lat, lon
         else:
             raise ValueError(f"Could not geocode: {cleaned}")
 
     def _distance_from_edmonton(self, lat, lon):
-        # Edmonton reference point
         lat0, lon0 = 53.5461, -113.4938
-        R = 6371  # Earth radius in km
-
+        R = 6371
         dlat = radians(lat - lat0)
         dlon = radians(lon - lon0)
         a = sin(dlat/2)**2 + cos(radians(lat0)) * cos(radians(lat)) * sin(dlon/2)**2
