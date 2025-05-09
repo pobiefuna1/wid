@@ -16,6 +16,7 @@ class WidTrailblazer:
             "Southridge Zone": "111 St to 119 St, 23 Ave to Henday (Twin Brooks, Heritage)",
             "Westfield Trail Zone": "170 St to 215 St, Whitemud to 87 Ave (Callingwood, Lymburn, Aldergrove)",
             "Unmapped Zone": "Not within current trail boundaries",
+        }
 
     def get_coordinates(self, address):
         cleaned = f"{address}, Edmonton, AB, Canada"
