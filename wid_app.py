@@ -1,14 +1,23 @@
-
 import streamlit as st
+from pathlib import Path
 from widzone import get_zone_from_address, get_coordinates
 
+# Page config
 st.set_page_config(page_title="WID Zone Checker", page_icon="🗺️")
 
+# Optional: display logo if available
+logo_path = Path(__file__).parent / "wid_logo_web_ready" / "wid_logo_transparent.png"
+if logo_path.exists():
+    st.image(str(logo_path), width=180)
+
+# Title and intro
 st.title("🚶‍♀️ WID Trailblazer Zone Checker")
 st.write("Enter any Edmonton address to find its walking zone.")
 
+# Address input field
 address = st.text_input("📍 Address", placeholder="e.g., 124 Street NW & 111 Avenue NW, Edmonton")
 
+# Address lookup logic
 if address:
     try:
         zone = get_zone_from_address(address)
