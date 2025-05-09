@@ -6,17 +6,17 @@ API_KEY = "3dc65113cf8e4f10a2802af5cb630947"
 geocoder = OpenCageGeocode(API_KEY)
 
 def get_coordinates(address):
-    result = geocoder.geocode(address)
+    # Clean and normalize input for OpenCage
+    cleaned = f"{address}, Edmonton, AB, Canada"
+    result = geocoder.geocode(cleaned)
     if result and len(result):
         lat = result[0]['geometry']['lat']
         lon = result[0]['geometry']['lng']
         return lat, lon
     else:
-        raise ValueError("Address not found.")
+        raise ValueError(f"Could not geocode: {cleaned}")
 
 def get_zone_from_address(address):
-    print(f"DEBUG: lat={lat}, lon={lon}")
-    
     lat, lon = get_coordinates(address)
 
     # 1. Heart Trail Zone
@@ -51,7 +51,7 @@ def get_zone_from_address(address):
     elif 53.610 <= lat <= 53.640 and -113.540 <= lon <= -113.490:
         return "Lakeside Loop Zone"
 
-    # 9. Southridge Zone (expanded westward to include McLuhan Rd)
+    # 9. Southridge Zone (expanded westward)
     elif 53.430 <= lat <= 53.460 and -113.600 <= lon <= -113.510:
         return "Southridge Zone"
 
