@@ -29,11 +29,26 @@ class WidTrailblazer:
             raise ValueError(f"Could not geocode: {cleaned}")
 
     def get_zone(self, lat, lon):
-        for name, bounds in self.zones.items():
-            if (bounds["lat_min"] <= lat <= bounds["lat_max"] and
-                bounds["lon_min"] <= lon <= bounds["lon_max"]):
-                return name
-        return "Unmapped Zone"
+    margin = 0.002  # Safe margin (~200m)
+
+    # Sorted zone names to ensure deterministic evaluation
+    ordered_zones = list(self.zones.keys())
+
+    for name in ordered_zones:
+        bounds = self.zones[name]
+        if ((bounds["lat_min"] - margin) <= lat <= (bounds["lat_max"] + margin) and
+            (bounds["lon_min"] - margin) <= lon <= (bounds["lon_max"] + margin)):
+            return name
+
+    self._log_unmapped(lat, lon)
+    return "Unmapped Zone"
+
+    def _log_unmapped(self, lat, lon):
+    print(f"[UNMAPPED] lat={lat:.6f}, lon={lon:.6f}")
+    for name, b in self.zones.items():
+        lat_match = b["lat_min"] <= lat <= b["lat_max"]
+        lon_match = b["lon_min"] <= lon <= b["lon_max"]
+        print(f"→ {name}: lat_match={lat_match}, lon_match={lon_match}")
 
     def _load_zones(self):
         return {
