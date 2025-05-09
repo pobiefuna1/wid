@@ -49,7 +49,7 @@ class WidTrailblazer:
             bounds = self.zones.get(name)
             if ((bounds["lat_min"] - margin) <= lat <= (bounds["lat_max"] + margin) and
                 (bounds["lon_min"] - margin) <= lon <= (bounds["lon_max"] + margin)):
-        return name
+                return name
 
     self._log_unmapped(lat, lon)
     return "Unmapped Zone"
