@@ -30,3 +30,11 @@ if address:
     except Exception as e:
         st.error("❌ Unable to locate that address. Please check spelling or try a nearby intersection.")
         st.code(str(e))
+
+# Footer
+st.markdown(
+    "<div style='text-align: center; font-size: 0.8em; color: gray;'>"
+    "© 2025 Peter Obiefuna, Arizen Corporation"
+    "</div>",
+    unsafe_allow_html=True
+)
