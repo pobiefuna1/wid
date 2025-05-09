@@ -62,7 +62,7 @@ class WidTrailblazer:
         return {
             "Westfield Trail Zone": {
                 "lat_min": 53.470, "lat_max": 53.550,
-                "lon_min": -113.750, "lon_max": -113.600
+                "lon_min": -113.580, "lon_max": -113.600  # expanded eastward
             },
             "Southridge Zone": {
                 "lat_min": 53.430, "lat_max": 53.470,
