@@ -5,6 +5,22 @@ from opencage.geocoder import OpenCageGeocode
 API_KEY = "3dc65113cf8e4f10a2802af5cb630947"
 geocoder = OpenCageGeocode(API_KEY)
 
+ZONE_INFO = {
+    "Heart Trail Zone": "97 St to 124 St, 111 Ave to River Valley (Downtown, Oliver, Rossdale)",
+    "Northern Steps Zone": "97 St to 121 St, 127 Ave to 111 Ave (Kingsway, Alberta Ave, NAIT)",
+    "River Rise Zone": "34 St to 50 St, 153 Ave to 118 Ave (Clareview, Beverly, Highlands)",
+    "Trail West Zone": "124 St to 149 St, 107 Ave to 124 Ave (Glenora, Westmount)",
+    "Valley Weave Zone": "75 St to 91 St, 98 Ave to 82 Ave (Strathearn, Bonnie Doon)",
+    "Southwalk Zone": "66 St to 91 St, 34 Ave to 23 Ave (Millwoods North)",
+    "Whitemud Path Zone": "119 St to 142 St, 23 Ave to Whitemud Dr (Riverbend, Brookside)",
+    "Lakeside Loop Zone": "97 St to 127 St, 153 Ave to Henday (Lake District)",
+    "Southridge Zone": "111 St to 119 St, 23 Ave to Henday (Twin Brooks, Heritage)",
+    "Westfield Trail Zone": "170 St to 215 St, Whitemud to 87 Ave (Callingwood, Lymburn, Aldergrove)",
+    "Unmapped Zone": "Not within current trail boundaries",
+}
+
+
+
 def get_coordinates(address):
     # Clean and normalize input for OpenCage
     cleaned = f"{address}, Edmonton, AB, Canada"
