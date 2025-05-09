@@ -55,8 +55,8 @@ def get_zone_from_address(address):
     elif 53.430 <= lat <= 53.460 and -113.600 <= lon <= -113.510:
         return "Southridge Zone"
 
-    # 10. Westfield Trail Zone (slightly expanded)
-    elif 53.498 <= lat <= 53.522 and -113.705 <= lon <= -113.580:
+    # 10. Westfield Trail Zone (expanded north to include lat 53.532)
+    elif 53.500 <= lat <= 53.540 and -113.700 <= lon <= -113.580:
         return "Westfield Trail Zone"
 
     else:
