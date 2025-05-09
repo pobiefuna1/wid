@@ -51,13 +51,15 @@ def get_zone_from_address(address):
     elif 53.610 <= lat <= 53.640 and -113.540 <= lon <= -113.490:
         return "Lakeside Loop Zone"
 
-    # 9. Southridge Zone (expanded westward)
+    # 9. Southridge Zone
     elif 53.430 <= lat <= 53.460 and -113.600 <= lon <= -113.510:
         return "Southridge Zone"
 
-    # 10. Westfield Trail Zone (expanded westward to include 190 St)
-    elif 53.500 <= lat <= 53.520 and -113.700 <= lon <= -113.590:
+    # 10. Westfield Trail Zone (slightly expanded)
+    elif 53.498 <= lat <= 53.522 and -113.705 <= lon <= -113.580:
         return "Westfield Trail Zone"
 
     else:
+        import streamlit as st
+        st.warning(f"Unmapped Zone → lat: {lat:.6f}, lon: {lon:.6f}")
         return "Unmapped Zone"
