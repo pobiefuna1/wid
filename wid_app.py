@@ -7,7 +7,7 @@ API_KEY = "3dc65113cf8e4f10a2802af5cb630947"  # Set your OpenCage API key here
 trail = WidTrailblazer(API_KEY)
 
 # --- Page setup ---
-st.set_page_config(page_title="WID Zone Checker", page_icon="🗺️")
+st.set_page_config(page_title="WID Zone", page_icon="🗺️")
 
 # --- Logo ---
 
