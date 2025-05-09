@@ -51,8 +51,8 @@ class WidTrailblazer:
                 (bounds["lon_min"] - margin) <= lon <= (bounds["lon_max"] + margin)):
                 return name
 
-    self._log_unmapped(lat, lon)
-        return "Unmapped Zone"
+            self._log_unmapped(lat, lon)
+                return "Unmapped Zone"
 
     def _log_unmapped(self, lat, lon):
         print(f"[UNMAPPED] lat={lat:.6f}, lon={lon:.6f}")
