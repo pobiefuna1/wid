@@ -29,21 +29,21 @@ class WidTrailblazer:
             raise ValueError(f"Could not geocode: {cleaned}")
 
     def get_zone(self, lat, lon):
-    margin = 0.002  # Safe margin (~200m)
+        margin = 0.002  # Safe margin (~200m)
 
-    # Deterministic evaluation order — central/dense zones first
-    ordered_zones = [
-        "Heart Trail Zone",
-        "Northern Steps Zone",
-        "Trail West Zone",
-        "Valley Weave Zone",
-        "Southwalk Zone",
-        "Whitemud Path Zone",
-        "Lakeside Loop Zone",
-        "River Rise Zone",
-        "Southridge Zone",
-        "Westfield Trail Zone"
-    ]
+        # Deterministic evaluation order — central/dense zones first
+        ordered_zones = [
+            "Heart Trail Zone",
+            "Northern Steps Zone",
+            "Trail West Zone",
+            "Valley Weave Zone",
+            "Southwalk Zone",
+            "Whitemud Path Zone",
+            "Lakeside Loop Zone",
+            "River Rise Zone",
+            "Southridge Zone",
+            "Westfield Trail Zone"
+        ]
 
     for name in ordered_zones:
         bounds = self.zones.get(name)
