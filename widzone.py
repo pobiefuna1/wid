@@ -52,7 +52,7 @@ class WidTrailblazer:
                 return name
 
             self._log_unmapped(lat, lon)
-                return "Unmapped Zone"
+            return "Unmapped Zone"
 
     def _log_unmapped(self, lat, lon):
         print(f"[UNMAPPED] lat={lat:.6f}, lon={lon:.6f}")
