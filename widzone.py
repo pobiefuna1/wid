@@ -31,11 +31,22 @@ class WidTrailblazer:
     def get_zone(self, lat, lon):
     margin = 0.002  # Safe margin (~200m)
 
-    # Sorted zone names to ensure deterministic evaluation
-    ordered_zones = list(self.zones.keys())
+    # Deterministic evaluation order — central/dense zones first
+    ordered_zones = [
+        "Heart Trail Zone",
+        "Northern Steps Zone",
+        "Trail West Zone",
+        "Valley Weave Zone",
+        "Southwalk Zone",
+        "Whitemud Path Zone",
+        "Lakeside Loop Zone",
+        "River Rise Zone",
+        "Southridge Zone",
+        "Westfield Trail Zone"
+    ]
 
     for name in ordered_zones:
-        bounds = self.zones[name]
+        bounds = self.zones.get(name)
         if ((bounds["lat_min"] - margin) <= lat <= (bounds["lat_max"] + margin) and
             (bounds["lon_min"] - margin) <= lon <= (bounds["lon_max"] + margin)):
             return name
