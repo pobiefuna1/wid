@@ -23,14 +23,55 @@ address = st.text_input("📍 Address", placeholder="e.g., 124 Street NW & 111 A
 
 if address:
     if address.startswith("?"):
-        command = address.strip().lower()
+        command_parts = address.strip().split(maxsplit=1)
+        command = command_parts[0].lower()
+        arg = command_parts[1] if len(command_parts) > 1 else ""
 
         if command == "?zones":
             st.markdown("### 🗺️ Current WID Trailblazer Zones:")
             for z in trail.zones:
                 st.markdown(f"- **{z}**: {trail.describe(z)}")
+
+        elif command == "?coords" and arg:
+            try:
+                lat, lon = trail.get_coordinates(arg)
+                st.info(f"📍 **Coordinates:** {lat:.5f}, {lon:.5f}")
+            except Exception as e:
+                st.error("❌ Could not resolve address.")
+                st.code(str(e))
+
+        elif command == "?trace" and arg:
+            try:
+                lat, lon = trail.get_coordinates(arg)
+                zone = trail.get_zone(lat, lon)
+                st.info(f"📍 **lat:** {lat:.6f}, **lon:** {lon:.6f}\n🧭 **Zone:** {zone}")
+            except Exception as e:
+                st.error("❌ Trace failed.")
+                st.code(str(e))
+
+        elif command == "?whoami" and arg:
+            try:
+                zone, location, _ = trail.lookup_address(arg)
+                st.success(f"📍 This address falls within **{zone}**, covering: {location}")
+            except Exception as e:
+                st.error("❌ Could not locate address.")
+                st.code(str(e))
+
+        elif command in ["?help", "?"]:
+            st.markdown("""
+### 🛠️ WID Zone Checker Command Help
+
+You can use the following commands:
+
+- `?zones` — List all defined zone names and descriptions  
+- `?coords <address>` — Show latitude/longitude for an address  
+- `?trace <address>` — Show how a zone was resolved (match type + lat/lon)  
+- `?whoami <address>` — Friendly summary of zone + location  
+- `?help` or `?` — Display this help menu
+""")
+
         else:
-            st.warning("Unknown command. Try ?zones")
+            st.warning("❓ Unknown command. Type `?` or `?help` to see options.")
     else:
         try:
             zone, location, (lat, lon) = trail.lookup_address(address)
