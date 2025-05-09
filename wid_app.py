@@ -16,7 +16,11 @@ if logo_path.exists():
     st.image(str(logo_path), width=180)
 
 # --- UI ---
-st.title("🚶‍♀️ WID Trailblazer Zone")
+st.markdown("""
+<h2 style='text-align: center; font-size: 1.8em;'>
+🚶‍♀️ WID Trailblazer Zone
+</h2>
+""", unsafe_allow_html=True)
 st.write("Enter any Edmonton address to find its walking zone.")
 
 address = st.text_input("📍 Address", placeholder="e.g., 124 Street NW & 111 Avenue NW, Edmonton")
