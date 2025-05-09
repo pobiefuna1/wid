@@ -29,9 +29,7 @@ class WidTrailblazer:
             raise ValueError(f"Could not geocode: {cleaned}")
 
     def get_zone(self, lat, lon):
-        margin = 0.002  # Safe margin (~200m)
-
-        # Deterministic evaluation order — central/dense zones first
+        margin = 0.002  # ~200m fuzz margin
         ordered_zones = [
             "Heart Trail Zone",
             "Northern Steps Zone",
@@ -44,15 +42,14 @@ class WidTrailblazer:
             "Southridge Zone",
             "Westfield Trail Zone"
         ]
-
         for name in ordered_zones:
             bounds = self.zones.get(name)
             if ((bounds["lat_min"] - margin) <= lat <= (bounds["lat_max"] + margin) and
                 (bounds["lon_min"] - margin) <= lon <= (bounds["lon_max"] + margin)):
                 return name
 
-            self._log_unmapped(lat, lon)
-            return "Unmapped Zone"
+        self._log_unmapped(lat, lon)
+        return "Unmapped Zone"
 
     def _log_unmapped(self, lat, lon):
         print(f"[UNMAPPED] lat={lat:.6f}, lon={lon:.6f}")
@@ -63,47 +60,47 @@ class WidTrailblazer:
 
     def _load_zones(self):
         return {
-        "Westfield Trail Zone": {
-            "lat_min": 53.470, "lat_max": 53.550,
-            "lon_min": -113.750, "lon_max": -113.600
-        },
-        "Southridge Zone": {
-            "lat_min": 53.430, "lat_max": 53.470,
-            "lon_min": -113.750, "lon_max": -113.600
-        },
-        "Whitemud Path Zone": {
-            "lat_min": 53.470, "lat_max": 53.500,
-            "lon_min": -113.600, "lon_max": -113.540
-        },
-        "Heart Trail Zone": {
-            "lat_min": 53.500, "lat_max": 53.540,
-            "lon_min": -113.600, "lon_max": -113.540
-        },
-        "Trail West Zone": {
-            "lat_min": 53.540, "lat_max": 53.570,
-            "lon_min": -113.600, "lon_max": -113.540
-        },
-        "Northern Steps Zone": {
-            "lat_min": 53.570, "lat_max": 53.610,
-            "lon_min": -113.600, "lon_max": -113.540
-        },
-        "Lakeside Loop Zone": {
-            "lat_min": 53.610, "lat_max": 53.650,
-            "lon_min": -113.600, "lon_max": -113.540
-        },
-        "Valley Weave Zone": {
-            "lat_min": 53.500, "lat_max": 53.540,
-            "lon_min": -113.540, "lon_max": -113.460
-        },
-        "Southwalk Zone": {
-            "lat_min": 53.430, "lat_max": 53.500,
-            "lon_min": -113.540, "lon_max": -113.460
-        },
-        "River Rise Zone": {
-            "lat_min": 53.500, "lat_max": 53.650,
-            "lon_min": -113.460, "lon_max": -113.360
+            "Westfield Trail Zone": {
+                "lat_min": 53.470, "lat_max": 53.550,
+                "lon_min": -113.750, "lon_max": -113.600
+            },
+            "Southridge Zone": {
+                "lat_min": 53.430, "lat_max": 53.470,
+                "lon_min": -113.750, "lon_max": -113.600
+            },
+            "Whitemud Path Zone": {
+                "lat_min": 53.470, "lat_max": 53.500,
+                "lon_min": -113.600, "lon_max": -113.540
+            },
+            "Heart Trail Zone": {
+                "lat_min": 53.500, "lat_max": 53.540,
+                "lon_min": -113.600, "lon_max": -113.540
+            },
+            "Trail West Zone": {
+                "lat_min": 53.540, "lat_max": 53.570,
+                "lon_min": -113.600, "lon_max": -113.540
+            },
+            "Northern Steps Zone": {
+                "lat_min": 53.570, "lat_max": 53.610,
+                "lon_min": -113.600, "lon_max": -113.540
+            },
+            "Lakeside Loop Zone": {
+                "lat_min": 53.610, "lat_max": 53.650,
+                "lon_min": -113.600, "lon_max": -113.540
+            },
+            "Valley Weave Zone": {
+                "lat_min": 53.500, "lat_max": 53.540,
+                "lon_min": -113.540, "lon_max": -113.460
+            },
+            "Southwalk Zone": {
+                "lat_min": 53.430, "lat_max": 53.500,
+                "lon_min": -113.540, "lon_max": -113.460
+            },
+            "River Rise Zone": {
+                "lat_min": 53.500, "lat_max": 53.650,
+                "lon_min": -113.460, "lon_max": -113.360
+            }
         }
-    }
 
     def describe(self, zone_name):
         return self.ZONE_INFO.get(zone_name, "Unknown location.")
